@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    #fp-nav ul li a.active span,
+    #fp-nav ul li a span {
+      background-color: mediumslateblue!important;
+    }
+  </style>
+  <style>
+    .section1 { 
+      background: url(00CA44F3-9CD2-4923-A150-21C1851E5791-4158-0000038129F06DC3_tmp.jpg) 50%;
+      background-repeat: no-repeat;
+      background-size:cover;
+    }
+    .section2 { 
+      background: url(IMG_6882.JPG) 50%;
+      background-repeat: no-repeat;
+      background-size:cover
+
+    }
+    .section3 { background: url(IMG_6944.JPG) 50%;
+      background-size:cover}
+    .section4 { background: url(IMG_7114.jpg) 50%;
+      background-size:cover}
+    </style>
+  <link rel="stylesheet" href="fullpage.min.css">
+  <script src="jquery.min.js"></script>
+  <script src="fullpage.min.js"></script>
+  <title>Full Page JQ</title>
+</head>
+<body>
+
+  <div id="dowebok">
+    <div class="section section1">
+        <h3>第一屏</h3>
+    </div>
+    <div class="section section2">
+        <h3>第二屏</h3>
+    </div>
+    <div class="section section3">
+        <h3>第三屏</h3>
+    </div>
+    <div class="section section4">
+        <h3>第四屏</h3>
+    </div>
+</div>
+  
+
+<script>
+  $(function(){
+    $('#dowebok').fullpage({
+      navigation: true,
+    });
+
+});
+</script>
+</body>
+</html>

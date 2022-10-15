@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="jquery.min.js"></script>
+  <title>Sina Weibo</title>
+  <style>
+    .container {
+      border: 2px;
+      border-style: dotted;
+      width: 60%;
+      border-color: cadetblue;
+      margin: 50px auto;
+      padding: 50px 25px 100px 25px;
+      text-align: center;
+    }
+    .textbox {
+      margin: 10px auto;
+    }
+
+
+    .messageContainer li {
+      display: none;
+      line-height: 25px;
+      border-bottom: 1px dashed #cccccc;
+
+
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    微博发布
+    <textarea class="textbox" name="" id="" cols="30" rows="10"></textarea>
+    <button class="btn">发布</button>
+    <ul class="messageContainer">
+     
+      
+    </ul>
+
+  </div>
+
+
+  <script>
+    $(function () {
+      $(".btn").on("click", function () {
+        let message = $(".textbox").val();
+        let li = `<li> ${message}  <button>删除</button></li>`;
+        $(".messageContainer").prepend(li);
+        $(".messageContainer li").stop().slideDown();
+        $(".textbox").val("");
+
+      })
+
+      $("ul").on("click", "button",function () {
+        $(this).parent().slideUp(function() {
+          $(this).remove();
+        })
+      })
+
+    })
+  </script>
+</body>
+</html>
