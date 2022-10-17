@@ -44,16 +44,19 @@
   <div class="toDoContainer">
     <h3>A to Do List Items</h3>
     <ul class="list-group list-group-flush" id="todo">
+      <span id="toDoCount">Things Waiting to Do: </span>
     </ul>
   </div>
   <div class="finishedContainer">
     <h3>Items Already Done</h3>
     <ul class="list-group list-group-flush" id="finished">
-
+      <span id="finishedCount">Things done: </span>
     </ul>
   </div>
     <script>
       $(function() {
+        let todoCount = 0;
+        let finishedCount = 0;
         const readData = function (arr) {
           $.each(arr, function(index, ele) {
             let newLi = 
@@ -67,14 +70,15 @@
                 </button>
               </li>`;
             if (ele.status) {
-
               $(".finishedContainer ul").append(newLi).children("li").stop().slideDown().children(".checkBox").prop("checked", "checked");
-
+              finishedCount++;
+              $("#finishedCount").text(`Things done: ${finishedCount}`)
             } else {
               $(".toDoContainer ul").append(newLi).children("li").stop().slideDown();
+              todoCount++;
+              $("#toDoCount").text(`Things Waiting to Do: ${todoCount}`)
             }
             $('input.form-control').val("")
-            console.log(data)
           })
         }
         const getData = function () {
@@ -90,7 +94,9 @@
         }
         
 
-
+        // initilization of Data 
+        // let user input new messages to update the locoalstorage data
+        // when there is new messages add to the array, only render the latest index number. 
         let data = getData();
         readData(data);
         $('.btn-outline-success').on('click', function(e) {
@@ -112,6 +118,10 @@
           }
         })
 
+
+        // register delete buttons with click event, so the "li" element gets clicked would be deleted from the array
+        //  renew localstorage with new array
+        //  rerender the removed li with animate
         $('#todo, #finished').on("click", ".btn", function () {
           let deletedMessage = $(this).siblings('span').html();
           $(this).parent().stop().slideUp(function () {
@@ -121,11 +131,26 @@
             if(ele['todo'] == deletedMessage) {
               data.splice(index, 1);
               saveData(data);
+              if(ele['status']) {
+                finishedCount++;
+                todoCount--;
+                $("#toDoCount").text(`Things Waiting to Do: ${todoCount}`);
+                $("#finishedCount").text(`Things done: ${finishedCount}`);
+              } else {
+                finishedCount--;
+                todoCount++;
+                $("#toDoCount").text(`Things Waiting to Do: ${todoCount}`);
+                $("#finishedCount").text(`Things done: ${finishedCount}`);
+              }
               return false;
             }
           })
         })
 
+        // register CheckBox component with change event.
+        // when change event tragers, the element would be removed by animattion
+        // iliterate array to find with object was selected by user and change the 'status' toggle to ether true or false
+        // readData function would rerender DOM depends on the resulte of status
         $("#todo, #finished").on("change", ".checkBox", function() {
           console.log(123)
           let switchedMessage = $(this).siblings("span").html();
@@ -135,13 +160,17 @@
           $.each(data, function(index, ele) {
             if(ele.todo === switchedMessage) {
               if (ele.status) {
-                data.splice(index, 1, {todo: switchedMessage, status: false})
+                data.splice(index, 1, {todo: switchedMessage, status: false});
+                finishedCount--;
+                $("#finishedCount").text(`Things done: ${finishedCount}`)
+
                 saveData(data);
                 readData([data[index]])
-                // $(this).parents(".toDoContainer").siblings(".finishedContainer").children("#finished")
                 return false;
               } else {
-                data.splice(index, 1, {todo: switchedMessage, status: true})
+                data.splice(index, 1, {todo: switchedMessage, status: true});
+                todoCount--;
+                $("#toDoCount").text(`Things done: ${todoCount}`)
                 saveData(data);
                 readData([data[index]]);
                 return false
