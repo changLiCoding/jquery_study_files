@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta
+			http-equiv="X-UA-Compatible"
+			content="IE=edge" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0" />
+		<script src="./js/echarts.min.js"></script>
+		<script src="./js/jquery.min.js"></script>
+		<script src="./js/flexible.js"></script>
+		<style>
+			.box {
+				margin: 35px auto;
+				width: 80%;
+				height: 450px;
+				background-color: mistyrose;
+			}
+			.box2 {
+				margin: 35px auto;
+				width: 80%;
+				height: 450px;
+				background-color: mistyrose;
+			}
+		</style>
+		<title>ECharts</title>
+	</head>
+	<body>
+		<div
+			class="box"
+			id="main"></div>
+		<div
+			class="box2"
+			id="second"></div>
+		<script>
+			const myChart = echarts.init(document.getElementById("main"));
+			const myChart2 = echarts.init(document.getElementById("second"));
+			var option = {
+				title: {
+					text: "ECharts Getting Started Example",
+					subtext: "Showing in Million",
+					left: "center",
+				},
+				tooltip: {},
+				legend: {
+					data: ["sales"],
+					left: "left",
+				},
+				xAxis: {
+					data: [
+						"Shirts",
+						"Cardigans",
+						"Chiffons",
+						"Pants",
+						"Heels",
+						"Socks",
+						"hats",
+						"glasses",
+					],
+				},
+				yAxis: {},
+				series: [
+					{
+						name: "sales",
+						type: "bar",
+						data: [5, 20, 36, 10, 10, 20, 50, 45],
+					},
+				],
+			};
+			const data = {
+				title: {
+					text: "Referer of a Website",
+					subtext: "Fake Data",
+					left: "center",
+				},
+				tooltip: {
+					trigger: "item",
+				},
+				legend: {
+					orient: "vertical",
+					left: "left",
+				},
+				series: [
+					{
+						name: "Access From",
+						type: "pie",
+						radius: "100%",
+						data: [
+							{ value: 1048, name: "Search Engine" },
+							{ value: 735, name: "Direct" },
+							{ value: 580, name: "Email" },
+							{ value: 484, name: "Union Ads" },
+							{ value: 300, name: "Video Ads" },
+						],
+						emphasis: {
+							itemStyle: {
+								shadowBlur: 10,
+								shadowOffsetX: 0,
+								shadowColor: "rgba(0, 0, 0, 0.5)",
+							},
+						},
+					},
+				],
+			};
+			myChart.setOption(option);
+			myChart2.setOption(data);
+		</script>
+	</body>
+</html>
