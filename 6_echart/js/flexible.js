@@ -1,14 +1,14 @@
 ( function flexible ( window, document )
 {
-  var docEl = document.documentElement  // return root element
-  var dpr = window.devicePixelRatio || 1 // grab dpr
+  var docEl = document.documentElement
+  var dpr = window.devicePixelRatio || 1
 
-  // adjust body font size 
+  // adjust body font size
   function setBodyFontSize ()
   {
     if ( document.body )
     {
-      document.body.style.fontSize = ( 12 * dpr ) + 'px'
+      document.body.style.fontSize = ( 6 * dpr ) + 'px'
     }
     else
     {
@@ -36,7 +36,7 @@
     }
   } )
 
-
+  // detect 0.5px supports
   if ( dpr >= 2 )
   {
     var fakeBody = document.createElement( 'body' )
