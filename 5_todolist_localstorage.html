@@ -72,14 +72,14 @@
             if (ele.status) {
               $(".finishedContainer ul").append(newLi).children("li").stop().slideDown().children(".checkBox").prop("checked", "checked");
               finishedCount++;
-              $("#finishedCount").text(`Things done: ${finishedCount}`)
             } else {
               $(".toDoContainer ul").append(newLi).children("li").stop().slideDown();
               todoCount++;
-              $("#toDoCount").text(`Things Waiting to Do: ${todoCount}`)
             }
             $('input.form-control').val("")
           })
+          $("#toDoCount").text(`Things Waiting to Do: ${todoCount}`)
+          $("#finishedCount").text(`Things done: ${finishedCount}`)
         }
         const getData = function () {
           let data = localStorage.getItem('todo');
@@ -132,15 +132,15 @@
               data.splice(index, 1);
               saveData(data);
               if(ele['status']) {
+                finishedCount--;
+                todoCount++;
+                // $("#toDoCount").text(`Things Waiting to Do: ${todoCount}`);
+                $("#finishedCount").text(`Things done: ${finishedCount}`);
+              } else {
                 finishedCount++;
                 todoCount--;
                 $("#toDoCount").text(`Things Waiting to Do: ${todoCount}`);
-                $("#finishedCount").text(`Things done: ${finishedCount}`);
-              } else {
-                finishedCount--;
-                todoCount++;
-                $("#toDoCount").text(`Things Waiting to Do: ${todoCount}`);
-                $("#finishedCount").text(`Things done: ${finishedCount}`);
+                // $("#finishedCount").text(`Things done: ${finishedCount}`);
               }
               return false;
             }
@@ -152,7 +152,6 @@
         // iliterate array to find with object was selected by user and change the 'status' toggle to ether true or false
         // readData function would rerender DOM depends on the resulte of status
         $("#todo, #finished").on("change", ".checkBox", function() {
-          console.log(123)
           let switchedMessage = $(this).siblings("span").html();
           $(this).parent().stop().slideUp(function () {
             $(this).remove();
@@ -163,14 +162,13 @@
                 data.splice(index, 1, {todo: switchedMessage, status: false});
                 finishedCount--;
                 $("#finishedCount").text(`Things done: ${finishedCount}`)
-
                 saveData(data);
-                readData([data[index]])
+                readData([data[index]]);
                 return false;
               } else {
                 data.splice(index, 1, {todo: switchedMessage, status: true});
                 todoCount--;
-                $("#toDoCount").text(`Things done: ${todoCount}`)
+                $("#toDoCount").text(`Things waiting to do: ${todoCount}`)
                 saveData(data);
                 readData([data[index]]);
                 return false
@@ -178,7 +176,6 @@
             }
           })
         })
-
       })
     </script>
 
